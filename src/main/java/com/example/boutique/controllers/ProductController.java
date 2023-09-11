@@ -5,14 +5,10 @@ import com.example.boutique.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 public class ProductController {
-    @Autowired
-    private ProductController productController;
     @Autowired
     private ProductService productService;
 
@@ -31,5 +27,23 @@ public class ProductController {
     @PostMapping("/createform")
     public String submitForm(@ModelAttribute Product product, Model model) {
         return productService.submitForm(product, model);
+    }
+
+    @GetMapping("/updateform")
+    public String showUpdateForm(Model model) {
+        return productService.showUpdateForm(model);
+    }
+    @PostMapping("/updateform")
+    public String submitUpdateForm(@ModelAttribute Product product, Model model) {
+        return productService.submitUpdateForm(product, model);
+    }
+
+    @GetMapping("/deleteform")
+    public String showDeleteForm(Model model) {
+        return productService.showDeleteForm(model);
+    }
+    @PostMapping("/deleteform")
+    public String submitDeleteForm(@ModelAttribute Product product,Model model) {
+        return productService.submitDeleteForm(product, model);
     }
 }

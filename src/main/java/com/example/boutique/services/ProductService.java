@@ -23,10 +23,48 @@ public class ProductService {
         model.addAttribute("product", new Product());
         return "create-product"; // Le nom de la vue du formulaire de création
     }
+
     public String submitForm(@ModelAttribute Product product, Model model) {
         model.addAttribute("product",  product);
         productRepo.save(product);
         return this.findAllProducts(model); // Le nom de la vue du formulaire de création
+    }
+
+    public String showUpdateForm(Model model) {
+        model.addAttribute("product", new Product());
+        System.out.println("création du modèle product");
+        return "update-form"; // Le nom de la vue du formulaire de création
+    }
+    public String submitUpdateForm(@ModelAttribute Product product, Model model) {
+        System.out.println("submit début");
+        model.addAttribute("product",  product);
+        System.out.println(product);
+        Product p = productRepo.findProductByProductName(product.getProductName());
+        System.out.println(p);
+        if (p.getProductName() != null && p.getProductDescription() != null) {
+            p.setProductName(product.getProductName());
+            p.setProductDescription(product.getProductDescription());
+            p.setProductType(product.getProductType());
+            System.out.println(p + "après update");
+            productRepo.save(p);
+            return this.findAllProducts(model);        // Le nom de la vue du formulaire de création
+        } else {
+            return "index";
+        }
+    }
+    public String showDeleteForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "delete-form"; // Le nom de la vue du formulaire de création
+    }
+    public String submitDeleteForm(@ModelAttribute Product product, Model model) {
+        model.addAttribute("product",  product);
+        Product p = productRepo.findProductByProductName(product.getProductName());
+        if (p.getProductName() != null && p.getProductDescription() != null) {
+            productRepo.delete(p);
+            return this.findAllProducts(model);        // Le nom de la vue du formulaire de création
+        } else {
+            return "index";
+        }
     }
 
     public String findAllProducts(Model model) {

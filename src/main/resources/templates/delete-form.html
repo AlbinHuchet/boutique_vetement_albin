@@ -16,18 +16,11 @@
   </style>
 </head>
 <body>
-<h2>Create Products</h2>
-<form th:action="@{/createform}" th:object="${product}" method="post">
+<h2>Delete Products</h2>
+<form th:action="@{/deleteform}" th:object="${product}" method="post">
   <label for="title">Name:</label>
   <input type="text" id="title" name="name" th:field="*{productName}" required><br>
-
-  <label for="description">Description:</label>
-  <textarea id="description" name="description" th:field="*{productDescription}" required></textarea><br>
-
-  <label for="description">Type:</label>
-  <textarea id="type" name="type" th:field="*{productType}" required></textarea><br>
-
-  <button type="submit">Create Product</button>
+  <button type="submit">Delete Product</button>
 </form>
 </body>
 </html>

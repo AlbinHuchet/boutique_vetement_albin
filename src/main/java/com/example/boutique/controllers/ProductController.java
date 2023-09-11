@@ -46,4 +46,13 @@ public class ProductController {
     public String submitDeleteForm(@ModelAttribute Product product,Model model) {
         return productService.submitDeleteForm(product, model);
     }
+
+    @GetMapping("/deleteallform")
+    public String showDeleteAllForm(Model model) {
+        return productService.showDeleteAllForm(model);
+    }
+    @PostMapping("/deleteallform")
+    public String submitDeleteAllForm(@ModelAttribute Product product,Model model) {
+        return productService.submitDeleteAllForm(product, model);
+    }
 }

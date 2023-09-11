@@ -66,6 +66,15 @@ public class ProductService {
             return "index";
         }
     }
+    public String showDeleteAllForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "deleteall-form"; // Le nom de la vue du formulaire de création
+    }
+    public String submitDeleteAllForm(@ModelAttribute Product product, Model model) {
+        model.addAttribute("product",  product);
+        productRepo.deleteAll();
+        return this.findAllProducts(model);        // Le nom de la vue du formulaire de création
+    }
 
     public String findAllProducts(Model model) {
         List<Product> products = productRepo.findAll();

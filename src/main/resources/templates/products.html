@@ -1,0 +1,44 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <title>Tutorials</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    body{background-color: coral;}
+    h1{ align-content: center;
+      margin:auto;}
+    table, th, td {
+      border: 1px solid;
+      width: 60%;
+      border-collapse: collapse;
+      background-color: aquamarine;
+      align-content: center;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+<h1>Liste des Produits:</h1>
+<table>
+  <thead>
+  <tr>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Type</th>
+  </tr>
+  </thead>
+  <tbody>
+  <!--  <tr th:if="${tutorials.empty}">-->
+  <!--    <td>No  tutorials avalaible</td>-->
+  <!--  </tr>-->
+  <tr th:each="prod : ${products}">
+    <td><span th:text="${prod.productName}">Name</span></td>
+    <td><span th:text="${prod.productDescription}">Description</span></td>
+    <td><span th:text="${prod.productType}">Type</span></td>
+  </tr>
+  </tbody>
+</table>
+
+</body>
+</html>

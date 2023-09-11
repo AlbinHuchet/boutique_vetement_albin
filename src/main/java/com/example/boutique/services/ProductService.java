@@ -6,6 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
+
 import java.util.List;
 
 @Service
@@ -13,6 +16,26 @@ public class ProductService {
 
     @Autowired
     ProductRepository productRepo;
+
+    //Deux méthodes conjointes pour afficher une page html, récupérer les données du formulaire
+    //créer le formulaire et retourner la liste de formulaires
+    public String showForm(Model model) {
+        model.addAttribute("product", new Product());
+        return "create-product"; // Le nom de la vue du formulaire de création
+    }
+    public String submitForm(@ModelAttribute Product product, Model model) {
+        model.addAttribute("product",  product);
+        productRepo.save(product);
+        return this.findAllProducts(model); // Le nom de la vue du formulaire de création
+    }
+
+    public String findAllProducts(Model model) {
+        List<Product> products = productRepo.findAll();
+        model.addAttribute("products", products);
+        return "products";
+    }
+
+
 //Je suis inialement parti sur des méthodes Rest Controller avant de me rappeler que pour utiliser thymeleaf il fallait du controller
     public ResponseEntity<List<Product>> findAllProducts() {
         List<Product> product = productRepo.findAll();

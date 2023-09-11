@@ -3,39 +3,33 @@ package com.example.boutique.controllers;
 import com.example.boutique.entities.Product;
 import com.example.boutique.services.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
-import java.util.List;
-
-@CrossOrigin(origins="*")
-@org.springframework.web.bind.annotation.RestController
-@RequestMapping("/api")
+@Controller
 public class ProductController {
-
     @Autowired
-    ProductService productService;
+    private ProductController productController;
+    @Autowired
+    private ProductService productService;
 
-    @GetMapping("/allproducts")
-    public ResponseEntity<List<Product>> searchAllProducts() {
-        return  productService.findAllProducts();
-    }
-    @PostMapping("/createproduct")
-    public ResponseEntity<Product> createProduct(@RequestBody Product product) {
-        return  productService.createProduct(product);
-    }
-    @PutMapping("/update")
-    public ResponseEntity<Product> updateProduct(@RequestBody Product updatedProduct) {
-        return  productService.update(updatedProduct);
-    }
-    @DeleteMapping ("/delete/{productId}")
-    public ResponseEntity <Product> delete (@PathVariable Long productId) {
-        return productService.deleteById(productId);
+    //Afficher tous les tutoriels
+    @GetMapping("/products")
+    public String searchAllProducts(Model model) {
+        return  productService.findAllProducts(model);
     }
 
-    @DeleteMapping ("/deleteall")
-    public ResponseEntity <String> deleteAllTutorials() {
-        return productService.deleteAllProducts();
+    //Deux méthodes conjointes pour afficher une page html, récupérer les données du formulaire
+    //créer le formulaire et retourner la liste de formulaires
+    @GetMapping("/createform")
+    public String showForm(Model model) {
+        return productService.showForm(model);
+    }
+    @PostMapping("/createform")
+    public String submitForm(@ModelAttribute Product product, Model model) {
+        return productService.submitForm(product, model);
     }
 }

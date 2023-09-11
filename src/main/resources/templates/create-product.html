@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Title</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+  <style>
+    body{background-color: coral;}
+    div{ align-content: center}
+    form {
+      width: 25%;
+      background-color: aquamarine;
+      align-content: center;
+      margin: auto;
+    }
+  </style>
+</head>
+<body>
+<h2>Create Products</h2>
+<form th:action="@{/createform}" th:object="${product}" method="post">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" th:field="*{productName}" required><br>
+
+  <label for="description">Description:</label>
+  <textarea id="description" name="description" th:field="*{productDescription}" required></textarea><br>
+
+  <label for="description">Publié:</label>
+  <textarea id="published" name="published" th:field="*{productType}" required></textarea><br>
+
+  <button type="submit">Create Tutorial</button>
+</form>
+</body>
+</html>
